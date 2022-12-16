@@ -38,10 +38,6 @@ if(isset($_POST['submit']))
         exit(0);
     }
 }
-
-
-
-
 // if (isset($_POST['submit'])){
 
 //   $slider = $_FILES['slider'];
