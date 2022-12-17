@@ -21,106 +21,106 @@ include 'header.php';
     <div class="swiper-wrapper">
 
     <?php
+    $slider_query = "SELECT * FROM d_slider";
+    $slider_result = mysqli_query($conn, $slider_query);
+    while($r = mysqli_fetch_array($slider_result)){
+       ?>
 
-            $selectquery = "select * from d_slider";
 
-            $query = myqsli_query($conn, $selectquery );
-
-            // $result = mysqli_fetch_array($query);
-
-            while($result = mysqli_fetch_array($query)){
-    ?>
-
-    <!--   old link for image slider 
-      <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/slide-1.jpg)">
-     -->
     
-    <div class="swiper-slide carousel-item-a intro-item bg-image"
-       style="background-image: url(<?php echo $result['slider']; ?>)">
-        <div class="overlay overlay-a"></div>
-        <div class="intro-content display-table">
-          <div class="table-cell">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="intro-body">
-                    <p class="intro-title-top"><?php echo $result['s_heading1']; ?></p>
-                    <h1 class="intro-title mb-4 ">
-                      <span class="color-b">204 </span><?php echo $result['s_heading2']; ?> Mount
-                      <br> Olive Road Two
-                    </h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="<?php echo $result['s_btn_link']; ?>"><span class="price-a"><?php echo $result['s_btn_text']; ?></span></a>
-                    </p>
+              <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(./manage/<?php echo $r['slider']; ?>)">
+                  <div class="overlay overlay-a"></div>
+                  <div class="intro-content display-table">
+                    <div class="table-cell">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-lg-8">
+                            <div class="intro-body">
+                              <p class="intro-title-top"><?php echo $r['s_heading1']; ?></p>
+                              <h1 class="intro-title mb-4 ">
+                                <span class="color-b"><?php echo $r['s_heading2']; ?> </span><?php echo $r['s_heading3']; ?> 
+                              </h1>
+                              <p class="intro-subtitle intro-price">
+                                <a href="<?php echo $r['s_btn_link']; ?>"><span class="price-a"><?php echo $r['s_btn_text']; ?></span></a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-<?php
-    };
+          <?php
+              }
 
-    ?>
+              ?>
 
-   <!-- end loop   -->
-      <!-- <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/slide-2.jpg)">
-        <div class="overlay overlay-a"></div>
-        <div class="intro-content display-table">
-          <div class="table-cell">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345
-                    </p>
-                    <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Rino
-                      <br> Venda Road Five
-                    </h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/slide-3.jpg)">
-        <div class="overlay overlay-a"></div>
-        <div class="intro-content display-table">
-          <div class="table-cell">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345
-                    </p>
-                    <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Alira
-                      <br> Roan Road One
-                    </h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
+
+    
     </div>
     <div class="swiper-pagination"></div>
   </div><!-- End Intro Section -->
 
   <main id="main">
+
+
+
+
+  <?php
+    $slider_query = "SELECT * FROM about_us";
+    $slider_result = mysqli_query($conn, $slider_query);
+    while($about = mysqli_fetch_array($slider_result)){
+       ?>
+
+   <!-- ======= About Us Section ======= -->
+   <section class="section-about section-t8">
+      <div class="container">
+          <div class="row">
+          <div class="col-md-12">
+            <div class="title-wrap d-flex justify-content-between">
+              <div class="title-box">
+                <h2 class="title-a"><?php echo $about['about_heading']; ?></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card-body-c">
+                <h2><?php echo $about['about_sub_heading']; ?></h2>
+                <p class="content-c">
+                <?php echo $about['about_content']; ?>
+                </p>
+              </div>
+              <div class="card-footer-c">
+                <a href="<?php echo $about('btn_link'); ?>" class="link-c link-icon"><?php echo $about('btn_text');?><span class="bi bi-chevron-right"></span>
+                </a>
+              </div>
+         
+          </div>
+
+          <div class="col-lg-6">
+                <div class="about-img">
+                      <img src="manage/<?php echo $about['about_image']; ?>" class="img-fluid">
+                </div>
+          </div>
+
+        </div>
+
+        
+      </div>
+    </section>
+<?php
+                 }
+?>
+   
+
+    <!--end white loop -->
+    
+    <!-- End About Us Section -->
+
+
 
     <!-- ======= Services Section ======= -->
     <section class="section-services section-t8">
