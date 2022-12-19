@@ -1,7 +1,60 @@
 <?php
+include '../database.php';
 include 'sidebar.php';
 include 'importent-header.php';
 ?>
+
+<?php 
+       
+      if(isset($_POST['submit'])){
+
+        // craete a varible for you create batabase table row
+
+
+        $property_name = mysqli_real_escape_string($conn, $_POST['property_name']);
+        $property_location = mysqli_real_escape_string($conn, $_POST['property_location']);
+        $property_type = mysqli_real_escape_string($conn, $_POST['property_type']);
+        $property_rent_buy = mysqli_real_escape_string($conn, $_POST['property_rent_buy']);
+        $property_discription = mysqli_real_escape_string($conn, $_POST['property_discription']);
+        $btn_text = mysqli_real_escape_string($conn, $_POST['btn_text']);
+        $btn_link = mysqli_real_escape_string($conn, $_POST['btn_link']);
+        $property_area = mysqli_real_escape_string($conn, $_POST['property_area']);
+        $property_beds = mysqli_real_escape_string($conn, $_POST['property_beds']);
+        $property_baths = mysqli_real_escape_string($conn, $_POST['property_baths']);
+        $property_parking = mysqli_real_escape_string($conn, $_POST['property_parking']);
+       
+
+        if ($_FILES['property_images']['name'])
+          {
+              move_uploaded_file($_FILES['property_images']['tmp_name'], "uploads/" . $_FILES['property_images']['name']);
+              $property_images = "uploads/" . $_FILES['property_images']['name'];
+          }
+
+          // insert qurey in datatable code
+
+          $query =  "INSERT INTO property_list (property_images,property_name,property_location,property_type,property_rent_buy,property_discription,btn_text,btn_link,property_area,property_beds,property_baths,property_parking) 
+                                        VALUES ('$property_images','$property_name','$property_location','$property_type','$property_rent_buy','$property_discription','$btn_text','$btn_link','$property_area','$property_beds','$property_baths','$property_parking')";
+
+          $query_run = mysqli_query($conn, $query);
+            
+                        if($query_run)
+                          {
+                              echo "inserted"; 
+                              exit(0);
+                          }
+                          else
+                          {
+                              echo "insert Failed";
+                              exit(0);
+                          }
+
+          }
+
+
+
+       
+      ?>
+
 
 
 
@@ -22,31 +75,65 @@ include 'importent-header.php';
                       
                     </div>
                     <div class="card-body">
-                      <form>
-                        <div class="row mb-3">
+                      <form method="POST" action="manage-property.php" enctype="multipart/form-data">
+                       <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Property Images</label>
                           <div class="col-sm-10">
-                            <input type="file" class="form-control" name="" id="" placeholder="logo" />
+                            <input type="file" class="form-control" name="property_images" id="" placeholder="Property Images" />
                           </div>
                         </div>
                       
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-phone">First Heading</label>
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">Property Name</label>
                           <div class="col-sm-10">
                             <input
                               type="text"
-                              
+                              name="property_name"
                               class="form-control phone-mask"
-                              placeholder="Text"
+                              placeholder="Property name"
                               />
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-phone">Rent & Price</label>
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">Property Location</label>
+                          <div class="col-sm-10">
+                            <input
+                              type="text"
+                              name="property_location"
+                              class="form-control phone-mask"
+                              placeholder="Property name"
+                              />
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">Property Type</label>
+                          <div class="col-sm-10">
+                            <input
+                              type="text"
+                              name="property_type"
+                              class="form-control phone-mask"
+                              placeholder="Commercial & Residential"
+                              />
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">Rent & Buy</label>
+                          <div class="col-sm-10">
+                            <input
+                              type="text"
+                              name="property_rent_buy"
+                              class="form-control phone-mask"
+                              placeholder="Rent & Buy"
+                              />
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">Property Price</label>
                           <div class="col-sm-10">
                             <input
                               type="number"
-                              
+                              name="property_price"
                               class="form-control phone-mask"
                               placeholder="Rent & Price"
                               />
@@ -54,11 +141,36 @@ include 'importent-header.php';
                         </div>
 
                         <div class="row mb-3">
-                          <label class="col-sm-1 col-form-label" for="basic-default-phone">Read more</label>
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">Property Discription</label>
                           <div class="col-sm-10">
                             <input
-                              type="textarea"
-                              
+                              type="text"
+                              name="property_discription"
+                              class="form-control phone-mask"
+                              placeholder="Property Discription"
+                              />
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label class="col-sm-1 col-form-label" for="basic-default-phone">Button Text</label>
+                          <div class="col-sm-10">
+                            <input
+                              type="text"
+                              name="btn_text"
+                              class="form-control phone-mask"
+                              placeholder="Page URL "
+                              />
+                          </div>
+                        </div>
+                        <div>
+
+                        <div class="row mb-3">
+                          <label class="col-sm-1 col-form-label" for="basic-default-phone">Button URL</label>
+                          <div class="col-sm-10">
+                            <input
+                              type="text"
+                              name="btn_link"
                               class="form-control phone-mask"
                               placeholder="Page URL "
                               />
@@ -71,49 +183,51 @@ include 'importent-header.php';
                           <div class="col-sm-2">
                             <input
                               type="number"
-                              
+                              name="property_area"
                               class="form-control phone-mask"
                               placeholder="350 sq.ft."
                               />
                           </div>
-                          <label class="col-sm-1 col-form-label" for="basic-default-phone">beth</label>
+                          <label class="col-sm-1 col-form-label" for="basic-default-phone">beds</label>
                           <div class="col-sm-2">
                             <input
                               type="number"
-                              
+                              name="property_beds"
                               class="form-control phone-mask"
-                              placeholder="2 Beth "
+                              placeholder="2 beds rooms "
                               />
                           </div>
-                          <label class="col-sm-1 col-form-label" for="basic-default-phone">bed room</label>
+                          <label class="col-sm-1 col-form-label" for="basic-default-phone">baths</label>
                           <div class="col-sm-2">
                             <input
                               type="number"
-                              
+                              name="property_baths"
                               class="form-control phone-mask"
-                              placeholder="2 bed "
+                              placeholder="baths "
                               />
                           </div>
                           <label class="col-sm-1 col-form-label" for="basic-default-phone">Parking</label>
                           <div class="col-sm-2">
                             <input
                               type="number"
-                              
+                              name="property_parking"
                               class="form-control phone-mask"
-                              placeholder="2  "
+                              placeholder="Parking"
                               />
                           </div>
                         </div>
-                        <div>
+
+                        <!-- <div>
                         <button type="submit" class="btn btn-primary">Add Menu</button>
-                        <div>
+                        <div> -->
                         
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                           </div>
                         </div>
                       </form>
+
                     </div>
                   </div>
                 </div>
